@@ -151,7 +151,7 @@ export function ActivityFeed() {
   return (
     <Card className="bg-white border-0 shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
+        <CardTitle className="flex items-center space-x-2 text-slate-900">
           <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
           <span>Live Trading Activity</span>
           <Badge variant="secondary" className="ml-auto">
@@ -174,9 +174,10 @@ export function ActivityFeed() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-slate-900">
-                    <span className="font-semibold">{activity.user}</span> {getActivityText(activity)}
+                    <span className="font-semibold text-slate-900">{activity.user}</span>{" "}
+                    <span className="text-slate-700">{getActivityText(activity)}</span>
                   </p>
-                  <div className="flex items-center space-x-2 text-xs text-slate-500 mt-1">
+                  <div className="flex items-center space-x-2 text-xs text-slate-600 mt-1">
                     <span>{getTimeAgo(activity.timestamp)}</span>
                     {activity.location && (
                       <>
@@ -189,7 +190,7 @@ export function ActivityFeed() {
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold text-slate-900">${activity.amount.toLocaleString()}</p>
-                {activity.plan && <p className="text-xs text-slate-500">{activity.plan}</p>}
+                {activity.plan && <p className="text-xs text-slate-600">{activity.plan}</p>}
               </div>
             </div>
           ))}

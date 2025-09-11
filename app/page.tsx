@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Shield, TrendingUp, Users, Star, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { ActivityFeed } from "@/components/activity-feed"
+import Image from "next/image"
 
 export default function HomePage() {
   return (
@@ -11,11 +12,9 @@ export default function HomePage() {
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-slate-900">TradePro</span>
+          <div className="flex items-center space-x-3">
+            <Image src="/cryptohaven-logo.jpg" alt="CryptoHaven Logo" width={40} height={40} className="rounded-lg" />
+            <span className="text-xl font-bold text-slate-900">CryptoHaven</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="#plans" className="text-slate-600 hover:text-blue-600 transition-colors">
@@ -28,7 +27,7 @@ export default function HomePage() {
               Contact
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             <Link href="/login">
               <Button variant="ghost" className="text-slate-600">
                 Login
@@ -36,6 +35,13 @@ export default function HomePage() {
             </Link>
             <Link href="/register">
               <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+            </Link>
+          </div>
+          <div className="md:hidden">
+            <Link href="/login">
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                Login
+              </Button>
             </Link>
           </div>
         </div>
@@ -62,9 +68,11 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent">
-              Watch Demo
-            </Button>
+            <Link href="#plans">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent">
+                Learn More
+              </Button>
+            </Link>
           </div>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="flex items-center justify-center space-x-3">
@@ -73,7 +81,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center justify-center space-x-3">
               <TrendingUp className="w-6 h-6 text-blue-600" />
-              <span className="text-slate-600">AI-Powered Analytics</span>
+              <span className="text-slate-600">Smart Trading Tools</span>
             </div>
             <div className="flex items-center justify-center space-x-3">
               <Users className="w-6 h-6 text-purple-600" />
@@ -95,12 +103,12 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Starter Plan */}
-            <Card className="relative border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-lg">
+            <Card className="relative border-2 hover:border-green-200 transition-all duration-300 hover:shadow-lg">
               <CardHeader className="text-center pb-8">
                 <CardTitle className="text-2xl font-bold text-slate-900">Starter</CardTitle>
                 <CardDescription className="text-slate-600">Perfect for beginners</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-slate-900">5%</span>
+                  <span className="text-4xl font-bold text-green-600">5%</span>
                   <span className="text-slate-600 ml-2">daily return</span>
                 </div>
               </CardHeader>
@@ -123,7 +131,7 @@ export default function HomePage() {
                     <span className="text-slate-600">Referral bonus: 10%</span>
                   </div>
                 </div>
-                <Button className="w-full mt-6 bg-blue-600 hover:bg-blue-700">Choose Plan</Button>
+                <Button className="w-full mt-6 bg-green-600 hover:bg-green-700">Choose Plan</Button>
               </CardContent>
             </Card>
 
@@ -218,11 +226,15 @@ export default function HomePage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">TradePro</span>
+              <div className="flex items-center space-x-3 mb-4">
+                <Image
+                  src="/cryptohaven-logo.jpg"
+                  alt="CryptoHaven Logo"
+                  width={32}
+                  height={32}
+                  className="rounded-lg"
+                />
+                <span className="text-xl font-bold">CryptoHaven</span>
               </div>
               <p className="text-slate-400 mb-4">
                 The most trusted platform for intelligent trading and investment growth.
@@ -252,12 +264,12 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link href="#" className="hover:text-white transition-colors">
-                    Analytics
+                    Security
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="hover:text-white transition-colors">
-                    Mobile App
+                    Support
                   </Link>
                 </li>
               </ul>
@@ -278,7 +290,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link href="#" className="hover:text-white transition-colors">
-                    Live Chat
+                    WhatsApp Live Chat
                   </Link>
                 </li>
                 <li>
@@ -318,7 +330,7 @@ export default function HomePage() {
 
           <div className="border-t border-slate-800 mt-12 pt-8 text-center text-slate-400">
             <p>
-              &copy; 2024 TradePro. All rights reserved. Trading involves risk and may not be suitable for all
+              &copy; 2024 CryptoHaven. All rights reserved. Trading involves risk and may not be suitable for all
               investors.
             </p>
           </div>
