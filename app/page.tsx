@@ -1,12 +1,22 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Shield, TrendingUp, Users, Star, CheckCircle } from "lucide-react"
+import { ArrowRight, Shield, TrendingUp, Users, Star, CheckCircle, DollarSign, UserCheck, Wallet } from "lucide-react"
 import Link from "next/link"
 import { ActivityFeed } from "@/components/activity-feed"
+import { AnimatedCounter } from "@/components/animated-counter"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 export default function HomePage() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
@@ -57,8 +67,8 @@ export default function HomePage() {
             Smart Trading,
             <span className="text-blue-600"> Smarter Returns</span>
           </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto text-pretty">
-            Join the future of intelligent trading with our AI-powered platform. Start with as little as $100 and watch
+          <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+            Join the future of intelligent trading with our AI-powered platform. Start with as little as $10 and watch
             your investments grow.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -91,6 +101,59 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="py-16 px-4 bg-white/50 backdrop-blur-sm">
+        <div className="container mx-auto">
+          <div
+            className={`grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 transition-all duration-1000 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div className="text-center">
+              <div className="flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16 bg-blue-100 rounded-full mx-auto mb-3 lg:mb-4">
+                <DollarSign className="w-6 h-6 lg:w-8 lg:h-8 text-blue-600" />
+              </div>
+              <div className="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-2">
+                $<AnimatedCounter end={2500000} duration={2500} />
+              </div>
+              <p className="text-sm lg:text-base text-slate-600 font-medium">Total Invested</p>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16 bg-green-100 rounded-full mx-auto mb-3 lg:mb-4">
+                <UserCheck className="w-6 h-6 lg:w-8 lg:h-8 text-green-600" />
+              </div>
+              <div className="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-2">
+                <AnimatedCounter end={15420} duration={2500} />
+                <span>+</span>
+              </div>
+              <p className="text-sm lg:text-base text-slate-600 font-medium">Happy Investors</p>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16 bg-purple-100 rounded-full mx-auto mb-3 lg:mb-4">
+                <Wallet className="w-6 h-6 lg:w-8 lg:h-8 text-purple-600" />
+              </div>
+              <div className="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-2">
+                $<AnimatedCounter end={112500} duration={2500} />
+              </div>
+              <p className="text-sm lg:text-base text-slate-600 font-medium">Total Withdrawal</p>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16 bg-orange-100 rounded-full mx-auto mb-3 lg:mb-4">
+                <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8 text-orange-600" />
+              </div>
+              <div className="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-2">
+                <AnimatedCounter end={4.5} decimals={1} duration={2500} />
+                <span>%</span>
+              </div>
+              <p className="text-sm lg:text-base text-slate-600 font-medium">Avg. Daily Profit</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Investment Plans Section */}
       <section id="plans" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
@@ -108,7 +171,7 @@ export default function HomePage() {
                 <CardTitle className="text-2xl font-bold text-slate-900">Starter</CardTitle>
                 <CardDescription className="text-slate-600">Perfect for beginners</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-green-600">5%</span>
+                  <span className="text-4xl font-bold text-green-600">1.5%</span>
                   <span className="text-slate-600 ml-2">daily return</span>
                 </div>
               </CardHeader>
@@ -116,11 +179,11 @@ export default function HomePage() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Minimum: $100</span>
+                    <span className="text-slate-600">Minimum: $10</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Maximum: $999</span>
+                    <span className="text-slate-600">Maximum: $100</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
@@ -144,7 +207,7 @@ export default function HomePage() {
                 <CardTitle className="text-2xl font-bold text-slate-900">Professional</CardTitle>
                 <CardDescription className="text-slate-600">For serious investors</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-blue-600">8%</span>
+                  <span className="text-4xl font-bold text-blue-600">2%</span>
                   <span className="text-slate-600 ml-2">daily return</span>
                 </div>
               </CardHeader>
@@ -152,11 +215,11 @@ export default function HomePage() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Minimum: $1,000</span>
+                    <span className="text-slate-600">Minimum: $100</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Maximum: $4,999</span>
+                    <span className="text-slate-600">Maximum: $500</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
@@ -177,7 +240,7 @@ export default function HomePage() {
                 <CardTitle className="text-2xl font-bold text-slate-900">Premium</CardTitle>
                 <CardDescription className="text-slate-600">Maximum returns</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-purple-600">12%</span>
+                  <span className="text-4xl font-bold text-purple-600">2.5%</span>
                   <span className="text-slate-600 ml-2">daily return</span>
                 </div>
               </CardHeader>
@@ -185,11 +248,11 @@ export default function HomePage() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Minimum: $5,000</span>
+                    <span className="text-slate-600">Minimum: $500</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-slate-600">Maximum: $50,000</span>
+                    <span className="text-slate-600">Maximum: $1,000</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-600" />

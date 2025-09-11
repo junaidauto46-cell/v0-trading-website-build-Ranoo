@@ -26,6 +26,21 @@ export default function LoginPage() {
     setIsLoading(true)
     setError("")
 
+    if (!email || !password) {
+      setError("Please enter both email and password")
+      setIsLoading(false)
+      return
+    }
+
+    // Check for obviously weak passwords
+    if (password.length < 3 || password === "123" || password === "password") {
+      setError(
+        "Invalid password. Please use a strong password with at least 8 characters, including uppercase, lowercase, numbers, and special characters.",
+      )
+      setIsLoading(false)
+      return
+    }
+
     // Mock authentication - in real app, this would call an API
     if (email && password) {
       // Simulate API call
@@ -47,8 +62,6 @@ export default function LoginPage() {
       localStorage.setItem("isAuthenticated", "true")
 
       router.push("/dashboard")
-    } else {
-      setError("Please enter both email and password")
     }
 
     setIsLoading(false)
@@ -136,7 +149,7 @@ export default function LoginPage() {
         </Card>
 
         <div className="mt-8 text-center text-sm text-slate-500">
-          <p>Demo credentials: Use any email and password to login</p>
+          <p>Demo: Use any email and a strong password (8+ chars, uppercase, lowercase, numbers, symbols)</p>
         </div>
       </div>
     </div>

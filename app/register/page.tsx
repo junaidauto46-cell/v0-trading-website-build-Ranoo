@@ -12,6 +12,8 @@ import { Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { validatePasswordStrength } from "@/utils/password-validation"
+import { PasswordStrengthIndicator } from "@/components/password-strength-indicator"
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -40,6 +42,13 @@ export default function RegisterPage() {
     e.preventDefault()
     setIsLoading(true)
     setError("")
+
+    const passwordStrength = validatePasswordStrength(formData.password)
+    if (!passwordStrength.isValid) {
+      setError("Password does not meet security requirements. Please check the requirements below.")
+      setIsLoading(false)
+      return
+    }
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
@@ -169,6 +178,7 @@ export default function RegisterPage() {
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+                <PasswordStrengthIndicator password={formData.password} />
               </div>
 
               <div className="space-y-2">

@@ -152,10 +152,13 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-slate-600">Welcome, {user.name}</span>
-            <Button variant="ghost" onClick={handleLogout} className="text-slate-600">
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
+            <span className="text-slate-600 text-sm md:text-base">
+              <span className="hidden sm:inline">Welcome, </span>
+              <span className="font-medium">{user.name}</span>
+            </span>
+            <Button variant="ghost" onClick={handleLogout} className="text-slate-600 p-2 md:px-4">
+              <LogOut className="w-4 h-4 md:mr-2" />
+              <span className="hidden md:inline">Logout</span>
             </Button>
           </div>
         </div>
