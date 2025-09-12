@@ -17,13 +17,20 @@ export default function HomePage() {
     setIsVisible(true)
   }, [])
 
+  const scrollToPlans = () => {
+    document.getElementById("plans")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Image src="/cryptohaven-logo.jpg" alt="CryptoHaven Logo" width={40} height={40} className="rounded-lg" />
+          <div className="flex items-center space-x-1">
+            <Image src="/cryptohaven-logo.jpg" alt="CryptoHaven Logo" width={56} height={56} className="rounded-lg" />
             <span className="text-xl font-bold text-slate-900">CryptoHaven</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
@@ -78,11 +85,9 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Link href="#plans">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent">
-                Learn More
-              </Button>
-            </Link>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-transparent" onClick={scrollToPlans}>
+              Learn More
+            </Button>
           </div>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="flex items-center justify-center space-x-3">
@@ -289,12 +294,12 @@ export default function HomePage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="flex items-center space-x-1 mb-4">
                 <Image
                   src="/cryptohaven-logo.jpg"
                   alt="CryptoHaven Logo"
-                  width={32}
-                  height={32}
+                  width={40}
+                  height={40}
                   className="rounded-lg"
                 />
                 <span className="text-xl font-bold">CryptoHaven</span>

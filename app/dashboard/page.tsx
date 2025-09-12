@@ -147,7 +147,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-3">
-              <Image src="/cryptohaven-logo.jpg" alt="CryptoHaven Logo" width={32} height={32} className="rounded-lg" />
+              <Image src="/cryptohaven-logo.jpg" alt="CryptoHaven Logo" width={48} height={48} className="rounded-lg" />
               <span className="text-xl font-bold text-slate-900">CryptoHaven</span>
             </Link>
           </div>
