@@ -21,44 +21,74 @@ export function ActivityFeed() {
   // Generate random activities
   const generateRandomActivity = (): Activity => {
     const types: Activity["type"][] = ["investment", "withdrawal", "referral", "commission"]
-    const users = [
-      "John D.",
-      "Sarah M.",
-      "Mike R.",
-      "Lisa K.",
-      "David L.",
-      "Emma W.",
-      "James B.",
-      "Anna C.",
-      "Tom H.",
-      "Maria G.",
-      "Alex P.",
-      "Sophie T.",
-      "Ryan F.",
-      "Kate N.",
-      "Ben S.",
+
+    const usersWithLocations = [
+      // International users
+      { name: "John D.", location: "New York" },
+      { name: "Sarah M.", location: "London" },
+      { name: "Mike R.", location: "Sydney" },
+      { name: "Lisa K.", location: "Berlin" },
+      { name: "David L.", location: "Toronto" },
+      { name: "Emma W.", location: "London" },
+      { name: "James B.", location: "New York" },
+      { name: "Anna C.", location: "Berlin" },
+      { name: "Tom H.", location: "Sydney" },
+      { name: "Maria G.", location: "Toronto" },
+      { name: "Alex P.", location: "Dubai" },
+      { name: "Sophie T.", location: "Singapore" },
+      { name: "Ryan F.", location: "Tokyo" },
+      { name: "Kate N.", location: "London" },
+      { name: "Ben S.", location: "New York" },
+
+      // Pakistani users
+      { name: "Ali R.", location: "Karachi" },
+      { name: "Hamza S.", location: "Lahore" },
+      { name: "Fatima A.", location: "Islamabad" },
+      { name: "Zain M.", location: "Karachi" },
+      { name: "Ahmed H.", location: "Lahore" },
+      { name: "Ayesha K.", location: "Islamabad" },
+
+      // Indian users
+      { name: "Aarav P.", location: "Mumbai" },
+      { name: "Rohit K.", location: "Delhi" },
+      { name: "Priya S.", location: "Bangalore" },
+      { name: "Arjun V.", location: "Mumbai" },
     ]
+
     const plans = ["Starter", "Professional", "Premium"]
-    const locations = ["New York", "London", "Tokyo", "Sydney", "Berlin", "Toronto", "Dubai", "Singapore"]
 
     const type = types[Math.floor(Math.random() * types.length)]
-    const user = users[Math.floor(Math.random() * users.length)]
+    const userWithLocation = usersWithLocations[Math.floor(Math.random() * usersWithLocations.length)]
     const plan = plans[Math.floor(Math.random() * plans.length)]
-    const location = locations[Math.floor(Math.random() * locations.length)]
 
     let amount: number
     switch (type) {
       case "investment":
-        amount = Math.floor(Math.random() * 10000) + 100
+        if (plan === "Starter") {
+          amount = Math.floor(Math.random() * 91) + 10 // $10-$100
+        } else if (plan === "Professional") {
+          amount = Math.floor(Math.random() * 401) + 100 // $100-$500
+        } else {
+          // Premium
+          amount = Math.floor(Math.random() * 501) + 500 // $500-$1000
+        }
         break
       case "withdrawal":
-        amount = Math.floor(Math.random() * 5000) + 50
+        // Starter plan earnings: $10-100 * 1.5% = $0.15-1.5 daily, so monthly could be $4.5-45
+        // Professional plan: $100-500 * 2% = $2-10 daily, so monthly could be $60-300
+        // Premium plan: $500-1000 * 2.5% = $12.5-25 daily, so monthly could be $375-750
+        const withdrawalRanges = [
+          Math.floor(Math.random() * 41) + 5, // $5-$45 (Starter earnings)
+          Math.floor(Math.random() * 241) + 60, // $60-$300 (Professional earnings)
+          Math.floor(Math.random() * 376) + 375, // $375-$750 (Premium earnings)
+        ]
+        amount = withdrawalRanges[Math.floor(Math.random() * withdrawalRanges.length)]
         break
       case "referral":
-        amount = Math.floor(Math.random() * 2000) + 100
+        amount = Math.floor(Math.random() * 101) + 50 // $50-$150
         break
       case "commission":
-        amount = Math.floor(Math.random() * 500) + 10
+        amount = Math.floor(Math.random() * 51) + 10 // $10-$60
         break
       default:
         amount = 100
@@ -67,11 +97,11 @@ export function ActivityFeed() {
     return {
       id: Math.random().toString(36).substr(2, 9),
       type,
-      user,
+      user: userWithLocation.name, // Use name from the mapped object
       amount,
       plan: type === "investment" ? plan : undefined,
       timestamp: new Date().toISOString(),
-      location,
+      location: userWithLocation.location, // Use location from the mapped object
     }
   }
 
