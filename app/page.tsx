@@ -373,7 +373,7 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/terms" className="hover:text-white transition-colors">
                     Terms of Service
                   </Link>
                 </li>
