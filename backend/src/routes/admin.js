@@ -79,12 +79,12 @@ router.put('/deposits/:id/reject',
  * @access  Admin
  */
 router.get('/withdrawals', 
-  validateQuery({
-    ...commonSchemas.pagination,
+  validateQuery(require('zod').object({
+    ...commonSchemas.pagination.shape,
     status: require('zod').enum(['PENDING', 'APPROVED', 'REJECTED', 'PAID']).optional(),
     coin: require('zod').enum(['USDT', 'BTC', 'ETH']).optional(),
     search: require('zod').string().min(1).max(100).optional(),
-  }),
+  })),
   getAllWithdrawals
 );
 
