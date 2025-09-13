@@ -222,10 +222,4 @@ model PasswordResetToken {
   @@map("password_reset_tokens")
 }
 
-// Indexes for better performance
-@@index([user_id], map: "deposits_user_id_idx", name: "deposits")
-@@index([user_id], map: "withdrawals_user_id_idx", name: "withdrawals")
-@@index([user_id], map: "active_investments_user_id_idx", name: "active_investments")
-@@index([user_id], map: "transactions_user_id_idx", name: "transactions")
-@@index([referral_code], map: "users_referral_code_idx", name: "users")
-@@index([email], map: "users_email_idx", name: "users")
+// Indexes added to individual models above
