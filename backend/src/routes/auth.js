@@ -85,10 +85,10 @@ router.get('/profile',
  */
 router.put('/profile', 
   authenticate,
-  validate({
+  validate(require('zod').object({
     name: require('zod').string().min(2).max(100).optional(),
     wallet_addresses: require('zod').object({}).optional(),
-  }),
+  })),
   updateProfile
 );
 
