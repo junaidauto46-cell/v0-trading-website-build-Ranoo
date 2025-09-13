@@ -33,12 +33,12 @@ router.get('/dashboard', getDashboardStats);
  * @access  Admin
  */
 router.get('/deposits', 
-  validateQuery({
-    ...commonSchemas.pagination,
+  validateQuery(require('zod').object({
+    ...commonSchemas.pagination.shape,
     status: require('zod').enum(['PENDING', 'APPROVED', 'REJECTED']).optional(),
     coin: require('zod').enum(['USDT', 'BTC', 'ETH']).optional(),
     search: require('zod').string().min(1).max(100).optional(),
-  }),
+  })),
   getAllDeposits
 );
 
