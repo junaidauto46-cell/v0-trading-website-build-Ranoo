@@ -109,12 +109,12 @@ router.put('/withdrawals/:id/approve',
  * @access  Admin
  */
 router.put('/withdrawals/:id/reject', 
-  validateParams({
+  validateParams(require('zod').object({
     id: commonSchemas.uuid,
-  }),
-  validate({
+  })),
+  validate(require('zod').object({
     admin_notes: require('zod').string().min(1).max(1000),
-  }),
+  })),
   rejectWithdrawal
 );
 
