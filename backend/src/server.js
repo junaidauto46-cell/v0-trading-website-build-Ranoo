@@ -136,7 +136,13 @@ app.get('/api/', (req, res) => {
       endpoints: {
         health: '/api/health',
         docs: '/api/docs',
-        // Will add more endpoints in next phases
+        auth: '/api/auth',
+        deposits: '/api/deposits',
+        withdrawals: '/api/withdrawals',
+        investments: '/api/investments',
+        referrals: '/api/referrals',
+        admin: '/api/admin',
+        fakeTransactions: '/api/fake-transactions',
       },
     },
   });
