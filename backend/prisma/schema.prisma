@@ -176,6 +176,7 @@ model ActiveInvestment {
   user User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   plan InvestmentPlan @relation(fields: [plan_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id])
   @@map("active_investments")
 }
 
