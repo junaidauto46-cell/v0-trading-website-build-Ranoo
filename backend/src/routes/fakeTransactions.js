@@ -15,9 +15,9 @@ const router = express.Router();
  * @note    This is simulation data for demo purposes only
  */
 router.get('/', 
-  validateQuery({
+  validateQuery(require('zod').object({
     count: require('zod').string().optional().transform(val => val ? parseInt(val) : 20),
-  }),
+  })),
   getFakeTransactions
 );
 
