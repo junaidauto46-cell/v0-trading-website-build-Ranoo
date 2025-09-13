@@ -65,9 +65,9 @@ router.get('/',
  */
 router.get('/:id', 
   authenticate,
-  validateParams({
+  validateParams(require('zod').object({
     id: commonSchemas.uuid,
-  }),
+  })),
   getInvestment
 );
 
