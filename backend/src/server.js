@@ -143,15 +143,15 @@ app.get('/api/', (req, res) => {
 });
 
 /**
- * API Routes (will be uncommented in next phases)
+ * API Routes
  */
-// app.use('/api/auth', authRoutes);
-// app.use('/api/users', userRoutes);
-// app.use('/api/deposits', depositRoutes);
-// app.use('/api/withdrawals', withdrawalRoutes);
-// app.use('/api/investments', investmentRoutes);
-// app.use('/api/admin', adminRoutes);
-// app.use('/api/fake-transactions', fakeTransactionRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/deposits', depositRoutes);
+app.use('/api/withdrawals', withdrawalRoutes);
+app.use('/api/investments', investmentRoutes);
+app.use('/api/referrals', referralRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/fake-transactions', fakeTransactionRoutes);
 
 /**
  * Swagger documentation (will be implemented in later phases)
