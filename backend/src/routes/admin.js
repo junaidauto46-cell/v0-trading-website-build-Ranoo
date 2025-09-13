@@ -94,12 +94,12 @@ router.get('/withdrawals',
  * @access  Admin
  */
 router.put('/withdrawals/:id/approve', 
-  validateParams({
+  validateParams(require('zod').object({
     id: commonSchemas.uuid,
-  }),
-  validate({
+  })),
+  validate(require('zod').object({
     admin_notes: require('zod').string().max(1000).optional(),
-  }),
+  })),
   approveWithdrawal
 );
 
