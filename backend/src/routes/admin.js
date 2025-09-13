@@ -124,9 +124,9 @@ router.put('/withdrawals/:id/reject',
  * @access  Admin
  */
 router.put('/users/:id/adjust-balance', 
-  validateParams({
+  validateParams(require('zod').object({
     id: commonSchemas.uuid,
-  }),
+  })),
   validate(adminSchemas.adjustBalance),
   adjustUserBalance
 );
