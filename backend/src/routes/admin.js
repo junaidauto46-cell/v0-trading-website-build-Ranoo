@@ -48,13 +48,13 @@ router.get('/deposits',
  * @access  Admin
  */
 router.put('/deposits/:id/approve', 
-  validateParams({
+  validateParams(require('zod').object({
     id: commonSchemas.uuid,
-  }),
-  validate({
+  })),
+  validate(require('zod').object({
     admin_notes: require('zod').string().max(1000).optional(),
     approved_amount: require('zod').number().positive().optional(),
-  }),
+  })),
   approveDeposit
 );
 
