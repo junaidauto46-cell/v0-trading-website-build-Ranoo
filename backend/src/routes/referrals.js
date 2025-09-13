@@ -48,10 +48,10 @@ router.get('/commissions',
  */
 router.get('/', 
   authenticate,
-  validateQuery({
-    ...commonSchemas.pagination,
+  validateQuery(require('zod').object({
+    ...commonSchemas.pagination.shape,
     status: require('zod').enum(['active', 'inactive']).optional(),
-  }),
+  })),
   getReferrals
 );
 
