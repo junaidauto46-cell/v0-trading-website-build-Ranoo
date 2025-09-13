@@ -51,10 +51,10 @@ router.post('/',
  */
 router.get('/', 
   authenticate,
-  validateQuery({
-    ...commonSchemas.pagination,
+  validateQuery(require('zod').object({
+    ...commonSchemas.pagination.shape,
     status: require('zod').enum(['ACTIVE', 'COMPLETED', 'CANCELLED']).optional(),
-  }),
+  })),
   getUserInvestments
 );
 
