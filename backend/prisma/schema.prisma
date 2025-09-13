@@ -1,0 +1,225 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum DepositStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PAID
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  REFERRAL_COMMISSION
+  INVESTMENT
+  PROFIT
+  ADMIN_ADJUSTMENT
+}
+
+enum InvestmentStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum Chain {
+  ERC20
+  TRC20
+  BTC
+  ETH
+}
+
+enum Coin {
+  USDT
+  BTC
+  ETH
+}
+
+model User {
+  id                String   @id @default(cuid())
+  name              String
+  email             String   @unique
+  password_hash     String
+  wallet_addresses  Json?    // Store multiple wallet addresses as JSON
+  balance_usd       Decimal  @default(0) @db.Decimal(15, 2)
+  referral_code     String   @unique
+  referred_by       String?
+  role              UserRole @default(USER)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  // Relations
+  referrer            User?   @relation("UserReferrals", fields: [referred_by], references: [referral_code])
+  referrals           User[]  @relation("UserReferrals")
+  deposits            Deposit[]
+  withdrawals         Withdrawal[]
+  active_investments  ActiveInvestment[]
+  transactions        Transaction[]
+  referral_commissions_earned ReferralCommission[] @relation("ReferralEarner")
+  referral_commissions_given  ReferralCommission[] @relation("ReferralGiver")
+  admin_logs_created  AdminLog[]
+  password_reset_tokens PasswordResetToken[]
+
+  @@map("users")
+}
+
+model Deposit {
+  id          String        @id @default(cuid())
+  user_id     String
+  txid        String        @unique
+  chain       Chain
+  amount_usd  Decimal       @db.Decimal(15, 2)
+  coin        Coin
+  note        String?
+  status      DepositStatus @default(PENDING)
+  admin_notes String?
+  created_at  DateTime      @default(now())
+  approved_at DateTime?
+  approved_by String?
+
+  // Relations
+  user                User                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  referral_commission ReferralCommission?
+
+  @@map("deposits")
+}
+
+model Withdrawal {
+  id                String           @id @default(cuid())
+  user_id           String
+  amount_usd        Decimal          @db.Decimal(15, 2)
+  destination_wallet String
+  coin              Coin
+  status            WithdrawalStatus @default(PENDING)
+  admin_notes       String?
+  created_at        DateTime         @default(now())
+  approved_at       DateTime?
+  approved_by       String?
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("withdrawals")
+}
+
+model ReferralCommission {
+  id             String  @id @default(cuid())
+  referrer_id    String
+  referee_id     String
+  deposit_id     String  @unique
+  commission_usd Decimal @db.Decimal(15, 2)
+  created_at     DateTime @default(now())
+
+  // Relations
+  referrer User    @relation("ReferralEarner", fields: [referrer_id], references: [id], onDelete: Cascade)
+  referee  User    @relation("ReferralGiver", fields: [referee_id], references: [id], onDelete: Cascade)
+  deposit  Deposit @relation(fields: [deposit_id], references: [id], onDelete: Cascade)
+
+  @@map("referral_commissions")
+}
+
+model InvestmentPlan {
+  id               String  @id @default(cuid())
+  name             String  @unique
+  daily_percentage Decimal @db.Decimal(5, 2) // e.g., 1.50 for 1.5%
+  min_deposit_usd  Decimal @db.Decimal(15, 2)
+  duration_days    Int
+  is_active        Boolean @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  // Relations
+  active_investments ActiveInvestment[]
+
+  @@map("investment_plans")
+}
+
+model ActiveInvestment {
+  id             String           @id @default(cuid())
+  user_id        String
+  plan_id        String
+  amount_usd     Decimal          @db.Decimal(15, 2)
+  start_date     DateTime         @default(now())
+  end_date       DateTime
+  daily_percent  Decimal          @db.Decimal(5, 2)
+  total_earned   Decimal          @default(0) @db.Decimal(15, 2)
+  status         InvestmentStatus @default(ACTIVE)
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+
+  // Relations
+  user User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  plan InvestmentPlan @relation(fields: [plan_id], references: [id], onDelete: Cascade)
+
+  @@map("active_investments")
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  user_id     String
+  type        TransactionType
+  amount_usd  Decimal         @db.Decimal(15, 2)
+  description String
+  created_at  DateTime        @default(now())
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
+}
+
+model AdminLog {
+  id         String   @id @default(cuid())
+  admin_id   String
+  action     String
+  details    Json?
+  created_at DateTime @default(now())
+
+  // Relations
+  admin User @relation(fields: [admin_id], references: [id], onDelete: Cascade)
+
+  @@map("admin_logs")
+}
+
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  user_id    String
+  token      String   @unique
+  expires_at DateTime
+  used       Boolean  @default(false)
+  created_at DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+// Indexes for better performance
+@@index([user_id], map: "deposits_user_id_idx", name: "deposits")
+@@index([user_id], map: "withdrawals_user_id_idx", name: "withdrawals")
+@@index([user_id], map: "active_investments_user_id_idx", name: "active_investments")
+@@index([user_id], map: "transactions_user_id_idx", name: "transactions")
+@@index([referral_code], map: "users_referral_code_idx", name: "users")
+@@index([email], map: "users_email_idx", name: "users")
