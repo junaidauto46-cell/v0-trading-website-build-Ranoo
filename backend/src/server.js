@@ -10,14 +10,14 @@ const database = require('./config/database');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
 const { generalLimiter } = require('./middleware/rateLimiter');
 
-// Import routes (will be created in next phases)
-// const authRoutes = require('./routes/auth');
-// const userRoutes = require('./routes/users');
-// const depositRoutes = require('./routes/deposits');
-// const withdrawalRoutes = require('./routes/withdrawals');
-// const investmentRoutes = require('./routes/investments');
-// const adminRoutes = require('./routes/admin');
-// const fakeTransactionRoutes = require('./routes/fakeTransactions');
+// Import routes
+const authRoutes = require('./routes/auth');
+const depositRoutes = require('./routes/deposits');
+const withdrawalRoutes = require('./routes/withdrawals');
+const investmentRoutes = require('./routes/investments');
+const referralRoutes = require('./routes/referrals');
+const adminRoutes = require('./routes/admin');
+const fakeTransactionRoutes = require('./routes/fakeTransactions');
 
 const app = express();
 
