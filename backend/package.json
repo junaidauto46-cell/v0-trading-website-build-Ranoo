@@ -9,7 +9,7 @@
     "build": "echo 'No build step required for Node.js'",
     "migrate": "npx prisma migrate dev",
     "migrate:prod": "npx prisma migrate deploy",
-    "db:seed": "node src/scripts/seedAdmin.js",
+    "db:seed": "node src/scripts/seedAdmin.js seed",
     "db:generate": "npx prisma generate",
     "db:studio": "npx prisma studio",
     "profit:job": "node src/jobs/dailyProfitJob.js",
