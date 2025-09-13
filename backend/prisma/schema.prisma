@@ -81,6 +81,8 @@ model User {
   admin_logs_created  AdminLog[]
   password_reset_tokens PasswordResetToken[]
 
+  @@index([referral_code])
+  @@index([email])
   @@map("users")
 }
 
