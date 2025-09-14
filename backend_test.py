@@ -161,7 +161,7 @@ class CryptoHavenAPITester:
             return False
             
         deposit_data = {
-            "txid": "0xtest123",
+            "txid": "0xtest123456789",  # Made longer to meet minimum requirement
             "chain": "ERC20",
             "amount_usd": 100,
             "coin": "USDT"
