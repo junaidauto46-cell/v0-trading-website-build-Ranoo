@@ -259,9 +259,10 @@ class CryptoHavenAPITester:
 
     def test_duplicate_registration(self):
         """Test duplicate user registration"""
+        timestamp = int(time.time())
         duplicate_data = {
             "name": "Test User",
-            "email": "testuser@example.com",
+            "email": f"testuser{timestamp}@example.com",
             "password": "TestPassword123!"
         }
         
