@@ -18,6 +18,7 @@ const investmentRoutes = require('./routes/investments');
 const referralRoutes = require('./routes/referrals');
 const adminRoutes = require('./routes/admin');
 const fakeTransactionRoutes = require('./routes/fakeTransactions');
+const jobRoutes = require('./routes/jobs');
 
 const app = express();
 
