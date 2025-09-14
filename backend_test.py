@@ -198,8 +198,8 @@ class CryptoHavenAPITester:
             return False
             
         investment_data = {
-            "planId": "1",
-            "amount": 50
+            "plan_id": "1",  # Fixed field name
+            "amount_usd": 50  # Fixed field name
         }
         
         success, status, response = self.make_request('POST', 'investments', investment_data, token=self.access_token, expected_status=400)
