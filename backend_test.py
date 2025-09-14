@@ -213,18 +213,18 @@ class CryptoHavenAPITester:
             self.log_test("Admin Dashboard Stats", False, "No admin token available")
             return False
             
-        success, status, response = self.make_request('GET', 'admin/dashboard/stats', token=self.admin_token)
+        success, status, response = self.make_request('GET', 'admin/dashboard', token=self.admin_token)
         self.log_test("Admin Dashboard Stats", success and response.get('success', False))
         return success
 
-    def test_admin_pending_deposits(self):
-        """Test getting pending deposits for admin"""
+    def test_admin_all_deposits(self):
+        """Test getting all deposits for admin"""
         if not self.admin_token:
-            self.log_test("Admin Pending Deposits", False, "No admin token available")
+            self.log_test("Admin All Deposits", False, "No admin token available")
             return False
             
-        success, status, response = self.make_request('GET', 'admin/deposits/pending', token=self.admin_token)
-        self.log_test("Admin Pending Deposits", success and response.get('success', False))
+        success, status, response = self.make_request('GET', 'admin/deposits', token=self.admin_token)
+        self.log_test("Admin All Deposits", success and response.get('success', False))
         return success
 
     def test_token_refresh(self):
