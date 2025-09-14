@@ -158,6 +158,7 @@ app.use('/api/withdrawals', withdrawalRoutes);
 app.use('/api/investments', investmentRoutes);
 app.use('/api/referrals', referralRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/jobs', jobRoutes);
 app.use('/api/fake-transactions', fakeTransactionRoutes);
 
 /**
