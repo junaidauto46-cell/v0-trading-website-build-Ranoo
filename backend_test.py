@@ -296,7 +296,7 @@ class CryptoHavenAPITester:
         
         # Admin functionality tests
         self.test_admin_dashboard_stats()
-        self.test_admin_pending_deposits()
+        self.test_admin_all_deposits()
         
         # Token management tests
         self.test_token_refresh()
