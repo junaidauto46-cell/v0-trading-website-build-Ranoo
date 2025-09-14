@@ -96,8 +96,9 @@ class CryptoHavenAPITester:
 
     def test_user_login(self):
         """Test user login"""
+        timestamp = int(time.time())
         login_data = {
-            "email": "testuser@example.com",
+            "email": f"testuser{timestamp}@example.com",
             "password": "TestPassword123!"
         }
         
